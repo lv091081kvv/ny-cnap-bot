@@ -45,6 +45,14 @@ def get_user_text(message):
 
 
 # create buttons
-
+@bot.message_handler(commands=['help'])
+def get_user_text(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    website = types.KeyboardButton('Веб сайт')
+    start = types.KeyboardButton('/start')
+    finish = types.KeyboardButton('/finish')
+    markup.add(start, finish, website)
+    bot.send_message(message.chat.id, 'Виберіть необхідний варіант'
+                     , parse_mode='html', reply_markup=markup)
 
 bot.polling(none_stop=True)
