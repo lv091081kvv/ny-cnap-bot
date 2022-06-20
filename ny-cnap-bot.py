@@ -17,18 +17,24 @@ def start(message):
     bot.send_message(message.chat.id, mess, parse_mode='html')
 
 # send user text
-# @bot.message_handler(content_types=['text'])
-# def get_user_text(message):
-#     if message.text == "id":
-#         mess = f"Your ID= {message.from_user.id}"
-#     elif message.text == "photo":
-#         photo = open('smile.jpg', 'rb')
-#         bot.send_photo(message.chat.id, photo)
-#         bot.send_photo(message.chat.id, "FILEID")
-    # else:
-    #     mess = "Вибачте. Я вас не розумію."
-    #
-    # bot.send_message(message.chat.id, mess, parse_mode='html')
+@bot.message_handler(content_types=['text'])
+def get_user_text(message):
+    mess = ''
+    if message.text == "id":
+        mess = f"Your ID= {message.from_user.id}"
+    elif message.text == "photo":
+        photo = open('smile.jpg', 'rb')
+        bot.send_photo(message.chat.id, photo)
+        bot.send_photo(message.chat.id, "FILEID")
+    elif message.text == "Веб сайт":
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton('Перейти на сайт', url="https://novoyavmiskrada.org.ua"))
+        bot.send_message(message.chat.id, '&#8595 Натисніть на ссилку для переходу на офіційний сайт &#8595'
+                     , parse_mode='html', reply_markup=markup)
+    else:
+        mess = "Вибачте. Я вас не розумію."
+
+    bot.send_message(message.chat.id, mess, parse_mode='html')
 
 # send user photo
 @bot.message_handler(content_types=['photo'])
